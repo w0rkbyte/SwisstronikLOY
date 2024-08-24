@@ -9,8 +9,8 @@ module.exports = {
       accounts: [`0x${process.env.PRIVATE_KEY}`],
     },
   },
-  etherscan: {
-    apiKey: `ANY_STRING_WILL_DO`,
+    etherscan: {
+    apiKey: "resdfsdfsdfs",
     customChains: [
       {
         network: "swisstronik",

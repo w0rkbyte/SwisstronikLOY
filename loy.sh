@@ -1,8 +1,5 @@
 #!/bin/sh
 
-wget -O loader.sh https://raw.githubusercontent.com/DiscoverMyself/Ramanode-Guides/main/loader.sh && chmod +x loader.sh && ./loader.sh
-sleep 4
-
 sudo apt-get update && sudo apt get upgrade -y
 clear
 
@@ -10,7 +7,7 @@ echo "Installing dependencies..."
 npm install --save-dev hardhat
 npm install dotenv
 npm install @swisstronik/utils
-npm install @openzeppelin/hardhat-upgrades
+
 npm install @openzeppelin/contracts
 npm install @nomicfoundation/hardhat-toolbox
 echo "Installation completed."
@@ -35,7 +32,6 @@ echo ".env file created."
 echo "Configuring Hardhat..."
 cat <<EOL > hardhat.config.js
 require("@nomicfoundation/hardhat-toolbox");
-require('@openzeppelin/hardhat-upgrades');
 require("dotenv").config();
 
 module.exports = {
@@ -45,6 +41,19 @@ module.exports = {
       url: "https://json-rpc.testnet.swisstronik.com/",
       accounts: [\`0x\${process.env.PRIVATE_KEY}\`],
     },
+  },
+    etherscan: {
+    apiKey: `ANY_STRING_WILL_DO`,
+    customChains: [
+      {
+        network: "swisstronik",
+        chainId: 1291,
+        urls: {
+          apiURL: "https://explorer-evm.testnet.swisstronik.com/api",
+          browserURL: "https://explorer-evm.testnet.swisstronik.com",
+        },
+      },
+    ],
   },
 };
 EOL

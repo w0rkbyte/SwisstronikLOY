@@ -17,6 +17,12 @@ async function main() {
   const [signer] = await hre.ethers.getSigners();
   const contractFactory = await hre.ethers.getContractFactory("Swisstronik");
   const contract = contractFactory.attach(contractAddress);
+
+await hre.run("verify:verify", {
+      address: contractAddress, // address of deployed contract
+      //constructorArguments: [JAN_1ST_2030], // constructor arguments
+    });
+
   const functionName = "getMessage";
   const responseMessage = await sendShieldedQuery(signer.provider, contractAddress, contract.interface.encodeFunctionData(functionName));
   console.log("Decoded response:", contract.interface.decodeFunctionResult(functionName, responseMessage)[0]);
